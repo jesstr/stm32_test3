@@ -6,7 +6,6 @@
 /*  USART2 global interrupt handler  */
 void USART2_IRQHandler(void)
 {
-	// TODO check if irq is Rx
 	 /* RXNE is automaticaly cleared by DMA read */
 	//if ((USART3->SR & USART_FLAG_RXNE) != (u16)RESET)
 
@@ -25,7 +24,6 @@ void USART2_IRQHandler(void)
 	/* Write to DMA number of data will be transfered */
 	DMA1_Channel2->CNDTR = data_count;
 	/* Write to DMA pointer to data will be transfered */
-	/* TODO test case if out_index was overflowed */
 	DMA1_Channel2->CMAR = (uint32_t)&Uart2_RxBuf[out_index];
 
 	/* Move FIFO out index */
@@ -42,7 +40,6 @@ void USART2_IRQHandler(void)
 /*  USART3 global interrupt handler  */
 void USART3_IRQHandler(void)
 {
-	// TODO check if irq is Rx
 	/* RXNE is automaticaly cleared by DMA read */
 //  if ((USART3->SR & USART_FLAG_RXNE) != (u16)RESET)
 

@@ -6,6 +6,7 @@
 #include "stm32f10x_dma.h"
 #include "misc.h"
 #include "main.h"
+#include <stdlib.h>
 
 
 unsigned char Uart2_RxBuf[UART_RX_BUF_SIZE];	/* UART2 Rx FIFO buffer */
@@ -70,21 +71,13 @@ void NVIC_Configuration(void)
 {
   NVIC_InitTypeDef NVIC_InitStructure;
 
-  //TODO check priority settings
-  /* 1 bit for pre-emption priority, 3 bits for subpriority */
-  //NVIC_SetPriorityGrouping(6);
-
   /* Enable the USART2 Interrupt */
   NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn;
-  //NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-  //NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
 
   /* Enable the USART3 Interrupt */
   NVIC_InitStructure.NVIC_IRQChannel = USART3_IRQn;
-  //NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-  //NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
 
@@ -170,14 +163,11 @@ void RCC_Configuration(void)
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2 | RCC_APB1Periph_USART3, ENABLE);
 
 	/* Enable GPIOA, GPIOB and GPIOC clock */
-	/* TODO Check RCC_APB2Periph_AFIO */
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB \
 			| RCC_APB2Periph_GPIOC | RCC_APB2Periph_AFIO, ENABLE);
 
 	/* DMA1 clock enable */
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
-
-	//TODO move here all rcc configuration
 }
 
 
